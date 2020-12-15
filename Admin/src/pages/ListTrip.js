@@ -288,7 +288,7 @@ class ListTrip extends React.Component {
                       <TableCell>{n.id}</TableCell>
                       
                       <TableCell>
-                        <Link key={n.name} to={`/home/tripdetail/${n.id}`}onClick={() => localStorage.setItem("admin_trip", n.id)}>{n.name}</Link>
+                        <Link key={n.name} to={`/admin/home/tripdetail/${n.id}`}onClick={() => localStorage.setItem("admin_trip", n.id)}>{n.name}</Link>
 
                       </TableCell>
                       <TableCell>{n.location}</TableCell>

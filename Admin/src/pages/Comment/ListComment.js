@@ -45,12 +45,6 @@ class ListComment extends React.Component {
         axios({
             method: 'DELETE',
             url: 'https://mighty-retreat-21374.herokuapp.com/api/comment/delete/' + id + "?token=" +  localStorage.getItem("token"),
-            // headers: {
-            //     Authorization: "Bearer" + localStorage.getItem("token")
-            // },
-            // data: {
-            //     comment_id: id
-            // }
         }).then((response) => {
             // handle success
             console.log(response.data);
@@ -66,10 +60,10 @@ class ListComment extends React.Component {
         let comments = this.state.listComment.map((comment, index) => {
             return (
                 <TableRow>
-                    <TableCell size="medium">
+                    <TableCell style={{width:"95%"}} size="medium">
                     <Comment comment={comment} />
                     </TableCell>
-                    <IconButton style={{paddingTop: 50}} aria-label="Delete">
+                    <IconButton style={{marginTop: 50}} aria-label="Delete">
                         <DeleteIcon onClick={event => this.deleteComment(event, comment.id)}/>
                     </IconButton>
                 </TableRow>

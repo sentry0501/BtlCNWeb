@@ -101,7 +101,7 @@ class Header extends React.Component {
 
   createChangePass = (event) =>{
     return (<Redirect to={{
-      pathname : '/home/changepass',
+      pathname : '/admin/home/changepass',
       state: {redirectToReferrer: true,
       }
     }}/>)
@@ -183,7 +183,7 @@ class Header extends React.Component {
         onClose={this.handleMenuClose}
       >
         <MenuItem>
-        <Link to={`/home/changepass`}>Profile</Link>
+        <Link to={`/admin/home/changepass`}>Profile</Link>
         </MenuItem>
         <MenuItem onClick={this.onHandleLogout}>Logout</MenuItem>
       </Menu>

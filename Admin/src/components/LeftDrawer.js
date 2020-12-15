@@ -78,7 +78,7 @@ const LeftDrawer = props => {
     <div>
       <div className={classes.logo}>
         <Link
-        href="/home"  
+        href="/admin/home"  
         variant="h5"
         color="inherit"
         
@@ -92,7 +92,7 @@ const LeftDrawer = props => {
           className={classes.avatar}
           component={RouterLink}
           src={StringConstant.IMAGE_PATH + localStorage.getItem("admin_avatar")}
-          to="/home/changepass"
+          to="/admin/home/changepass"
         />
         <Typography
           style ={{paddingLeft:30}}
@@ -100,7 +100,8 @@ const LeftDrawer = props => {
           color="white"
           variant="h6"
         >
-          {localStorage.getItem("admin_name")}
+          {/* {localStorage.getItem("admin_name")} */}
+          Admin
         </Typography>
         {/* <span className={classes.avatarSpan}>{localStorage.getItem("user_name")}</span> */}
       

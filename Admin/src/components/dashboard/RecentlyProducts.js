@@ -14,6 +14,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { cyan } from "@material-ui/core/colors";
 import Wallpaper from "@material-ui/icons/Wallpaper";
 import { withStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
 const styles = {
   subheader: {
@@ -44,31 +45,13 @@ class RecentlyProducts extends React.Component {
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
 
-    const rightIconMenu = (
-      <Menu anchorEl={anchorEl} open={open} onClose={this.handleClose}>
-        <MenuItem onClick={this.handleClose}>View</MenuItem>
-      </Menu>
-    );
 
-    const iconButtonElement = (
-      <div>
-        <IconButton
-          aria-label="More"
-          aria-owns={open ? "long-menu" : null}
-          aria-haspopup="true"
-          onClick={this.handleClick}
-        >
-          <MoreVertIcon color={"action"} />
-        </IconButton>
-        {rightIconMenu}
-      </div>
-    );
 
     return (
       <Paper>
         <List
           subheader={
-            <ListSubheader classes={{ root: classes.subheader }}>Recent Products</ListSubheader>
+            <ListSubheader classes={{ root: classes.subheader }}>Recent Ordered Trips</ListSubheader>
           }
         >
           {data.map((item, idx) => (
@@ -76,8 +59,22 @@ class RecentlyProducts extends React.Component {
               <Avatar style={{ marginRight: "10px" }}>
                 <Wallpaper />
               </Avatar>
-              <ListItemText primary={item.title} secondary={item.text} />
-              <ListItemSecondaryAction>{iconButtonElement}</ListItemSecondaryAction>
+              <ListItemText primary={item.trip} secondary={item.user} />
+              <ListItemSecondaryAction>
+                  <div>
+                  <IconButton
+                    aria-label="More"
+                    aria-owns={open ? "long-menu" : null}
+                    aria-haspopup="true"
+                    onClick={this.handleClick}
+                  >
+                    <MoreVertIcon color={"action"} />
+                  </IconButton>
+                  <Menu anchorEl={anchorEl} open={open} onClose={this.handleClose}>
+                    <Link to={`/admin/home/tripdetail/${item.trip_id}`}onClick={() => localStorage.setItem("admin_trip", item.trip_id)}>View</Link>
+                  </Menu>
+                  </div>  
+              </ListItemSecondaryAction>
             </ListItem>
           ))}
         </List>

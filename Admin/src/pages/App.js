@@ -73,11 +73,6 @@ class LoginPage extends React.Component {
             this.setState({redirectToReferrer:true}); 
           
           }
-          // else{
-          //   this.setState({redirectToReferrer:false}); 
-          // }
-          // handle success
-          
       }).catch((error) => {
         this.setState({
           open: true
@@ -151,7 +146,7 @@ class LoginPage extends React.Component {
     if (this.state.redirectToReferrer) {
       
       return (<Redirect to={{
-        pathname : '/home',
+        pathname : '/admin/home',
         state: {redirectToReferrer: true,
         }
       }}/>)
@@ -181,22 +176,20 @@ class LoginPage extends React.Component {
                     }
                     label="Remember me"
                   />
-                  {/* <Link to="/home"> */}
                     <Button variant="contained" color="primary" style={styles.loginBtn} onClick={this.onHandleLogin}>
                       Login
                     </Button>
-                  {/* </Link> */}
                 </div>
               </form>
             </Paper>
 
             <div style={styles.buttonsDiv}>
-              <Button href="/home" style={styles.flatButton}>
+              <Button href="/admin/home" style={styles.flatButton}>
                 <PersonAdd />
                 <span style={{ margin: 5 }}>Register</span>
               </Button>
 
-              <Button href="/home" style={styles.flatButton}>
+              <Button href="/admin/home" style={styles.flatButton}>
                 <Help />
                 <span style={{ margin: 5 }}>Forgot Password?</span>
               </Button>
@@ -229,9 +222,6 @@ class LoginPage extends React.Component {
     );
   }
 };
-// LoginPage.propTypes = {
-//   children: PropTypes.elemenst,
-//   classes: PropTypes.object
-// };
+
 
 export default LoginPage;

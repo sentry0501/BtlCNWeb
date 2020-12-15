@@ -141,15 +141,15 @@ class HomePage extends React.Component {
         />
         <div className={classNames(classes.container, !navDrawerOpen && classes.containerFull)}>
           <Switch>
-            <Route exact path="/home/" component={Dashboard} />
-            <Route path="/home/dashboard" component={Dashboard} />
-            <Route path="/home/form" component={props => <RequestTable {...props}/>} />
-            <Route path="/home/order" component={props => <OrderTable {...props}/>}/>
-            <Route path="/home/ListUser" component={props => <ListUser {...props}/>} />
-            <Route path="/home/userdetail" component={props => <UserDetail {...props}/>} />
-            <Route path="/home/trips" component={props => <ListTrip {...props}/>} />
-            <Route path="/home/tripdetail" component={props => <ViewTrip {...props}/>}/>
-            <Route path="/home/changepass" component={props => <Profile {...props}/>} />
+            <Route exact path="/admin/home/" component={Dashboard} />
+            <Route path="/admin/home/dashboard" component={Dashboard} />
+            <Route path="/admin/home/form" component={props => <RequestTable {...props}/>} />
+            <Route path="/admin/home/order" component={props => <OrderTable {...props}/>}/>
+            <Route path="/admin/home/ListUser" component={props => <ListUser {...props}/>} />
+            <Route path="/admin/home/userdetail" component={props => <UserDetail {...props}/>} />
+            <Route path="/admin/home/trips" component={props => <ListTrip {...props}/>} />
+            <Route path="/admin/home/tripdetail" component={props => <ViewTrip {...props}/>}/>
+            <Route path="/admin/home/changepass" component={props => <Profile {...props}/>} />
             <Route component={NotFound} />
           </Switch>
         </div>

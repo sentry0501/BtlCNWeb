@@ -8,7 +8,7 @@ const NewOrders = ({ data, theme }) => {
   const styles = {
     paper: {
       backgroundColor: theme.palette.primary[600],
-      height: 150
+      height: 220
     },
     div: {
       height: 95,

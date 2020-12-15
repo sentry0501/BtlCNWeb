@@ -1,75 +1,30 @@
 import React from "react";
-import Faker from "faker";
 import Assessment from "@material-ui/icons/Assessment";
-import GridOn from "@material-ui/icons/GridOn";
 import PermIdentity from "@material-ui/icons/PermIdentity";
 import Web from "@material-ui/icons/Web";
-import BorderClear from "@material-ui/icons/BorderClear";
+
 import BorderOuter from "@material-ui/icons/BorderOuter";
 
 const data = {
   menus: [
-    { text: "DashBoard", icon: <Assessment />, link: "/home/dashboard" },
-    { text: "Request Contributor", icon: <Web />, link: "/home/form" },
+    { text: "DashBoard", icon: <Assessment />, link: "/admin/home/dashboard" },
+    { text: "Request Contributor", icon: <Web />, link: "/admin/home/form" },
     {
       text: "User",
       icon: <PermIdentity />,
-      link: "/home/ListUser"
+      link: "/admin/home/ListUser"
     },
     {
       text: "Trips",
       icon: <BorderOuter />,
-      link: "/home/trips"
+      link: "/admin/home/trips"
     },
-    { text: "Ordered Trips", icon: <PermIdentity />, link: "/home/order" }
+    { text: "Ordered Trips", icon: <PermIdentity />, link: "/admin/home/order" }
   ],
-  // user: {
-  //   userName: `${Faker.name.firstName()} ${Faker.name.lastName()}`,
-  //   avatar: Faker.image.avatar()
-  // },
-  tablePage: {
-    items: Array.from({ length: 15 }, (item, index) => ({
-      id: index,
-      name: "BEN",
-      price: "Khoa",
-      category: "Kien"
-      // price: Faker.commerce.price(),
-      // category: Faker.commerce.productMaterial()
-    }))
-  },
+
+
   dashBoardPage: {
-    recentProducts: [
-      {
-        id: 1,
-        title: "Samsung TV",
-        text: "Samsung 32 1080p 60Hz LED Smart HDTV."
-      },
-      { id: 2, title: "Playstation 4", text: "PlayStation 3 500 GB System" },
-      {
-        id: 3,
-        title: "Apple iPhone 6",
-        text: "Apple iPhone 6 Plus 16GB Factory Unlocked GSM 4G "
-      },
-      {
-        id: 4,
-        title: "Apple MacBook",
-        text: "Apple MacBook Pro MD101LL/A 13.3-Inch Laptop"
-      }
-    ],
-    monthlySales: [
-      { name: "Jan", uv: 3700 },
-      { name: "Feb", uv: 3000 },
-      { name: "Mar", uv: 2000 },
-      { name: "Apr", uv: 2780 },
-      { name: "May", uv: 2000 },
-      { name: "Jun", uv: 1800 },
-      { name: "Jul", uv: 2600 },
-      { name: "Aug", uv: 2900 },
-      { name: "Sep", uv: 3500 },
-      { name: "Oct", uv: 3000 },
-      { name: "Nov", uv: 2400 },
-      { name: "Dec", uv: 2780 }
-    ],
+
     newOrders: [
       { pv: 2400 },
       { pv: 1398 },
@@ -79,11 +34,6 @@ const data = {
       { pv: 3490 },
       { pv: 4300 }
     ],
-    browserUsage: [
-      { name: "Chrome", value: 800 },
-      { name: "Firefox", value: 300 },
-      { name: "Safari", value: 300 }
-    ]
   }
 };
 

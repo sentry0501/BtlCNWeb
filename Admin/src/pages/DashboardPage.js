@@ -1,59 +1,154 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { cyan, pink, purple, orange } from "@material-ui/core/colors";
-import Assessment from "@material-ui/icons/Assessment";
-import Face from "@material-ui/icons/Face";
-import ThumbUp from "@material-ui/icons/ThumbUp";
-import ShoppingCart from "@material-ui/icons/ShoppingCart";
-import InfoBox from "../components/dashboard/InfoBox";
 import NewOrders from "../components/dashboard/NewOrders";
 import MonthlySales from "../components/dashboard/MonthlySales";
-import BrowserUsage from "../components/dashboard/BrowserUsage";
 import RecentlyProducts from "../components/dashboard/RecentlyProducts";
 import globalStyles from "../styles";
 import Grid from "@material-ui/core/Grid";
 import Data from "../data";
+import axios from 'axios';
 
-const DashboardPage = () => {
+
+
+
+class DashboardPage extends React.Component {
+  
+
+
+  constructor(props) {
+    super(props);
+    this.state = {
+        listOrderid: [],
+        listOrder: [],
+        listCity: [],
+        listOrderRecent:[],
+        listCityTrip: [],
+        show:false
+    };
+  }
+  async haha(city) {
+    
+    // for (var i =0;i<city.length;i++)
+    var cont = true;
+    var i=0;
+    var listTrip_City=[];
+    do    
+              {
+                cont=false
+                console.log("i ",i)
+                  var city_ = city[i];
+                  // this.haha(city_,listTrip_City);
+
+                  await axios({
+                    method: 'GET',
+                    url: 'https://mighty-retreat-21374.herokuapp.com/api/trip/city/'+city_.city,
+                  
+                    data: null
+                  }).then((response) => {
+                      // handle success
+                      console.log("abc", response.data);
+                      console.log("city", city_.city);
+                      var count = response.data.trips.length
+                      console.log("count", count);
+                      listTrip_City.push({name:city_.city,trips:count})
+                      console.log("list", listTrip_City);
+                      console.log("monthly",this.state.listCityTrip )
+                      i++;
+                      cont = true;
+                      }).catch((error) => {
+                      // handle error
+                      console.log(error);
+                      
+                  });
+
+                  
+                }
+                while(i<city.length&&cont===true)
+                console.log("list", listTrip_City);
+                this.setState({listCityTrip:listTrip_City,
+                  show:true
+                }) 
+
+    
+    // this.setState({listCityTrip:listTrip_City})
+    
+  }
+  async componentWillMount() {
+          await axios({
+            method: 'GET',
+            url: 'https://mighty-retreat-21374.herokuapp.com/api/order?token=' +localStorage.getItem("token"),
+          
+            data: null
+          }).then((response) => {
+              // handle success
+              console.log("abc", response.data);
+              // temsp = response.data.orders.sort(response.data.order.id)
+              var getdata = response.data.orders.splice(response.data.orders.length - 6);
+              this.setState({
+                  listOrderRecent: getdata
+              })
+          }).catch((error) => {
+              // handle error
+              console.log(error);
+          });
+          await axios({
+            method: 'GET',
+            url: 'https://mighty-retreat-21374.herokuapp.com/api/trip/city',
+          
+            data: null
+          }).then((response) => {
+              // handle success
+              this.setState({
+                  listCity: response.data.city
+              })
+              var listTrip_City = [];
+              this.haha(response.data.city)
+                
+          }).catch((error) => {
+              // handle error
+              console.log(error);
+          });
+    }
+
+  render()
+  {
+    const {theme} = this.props
+    const styles = {
+      
+      div: {
+        marginLeft: "auto",
+        marginRight: "auto",
+        width: "95%",
+        height: 85
+      },
+
+    };
+    const chartData = this.state.listCityTrip
   return (
     <div>
       <h3 style={globalStyles.navigation}>Application / Dashboard</h3>
 
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} md={3}>
-          <Link to="/table/data" className="button">
-            <InfoBox Icon={ShoppingCart} color={pink[600]} title="Total Profit" value={1500000} />
-          </Link>
+        <Grid item xs={12} sm={4}>
+          <RecentlyProducts data={this.state.listOrderRecent} />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <InfoBox Icon={ThumbUp} color={cyan[600]} title="Likes" value={4231} />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <InfoBox Icon={Assessment} color={purple[600]} title="Sales" value={460} />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <InfoBox Icon={Face} color={orange[600]} title="New Members" value={248} />
-        </Grid>
-      </Grid>
+        <Grid item xs={12} sm={8} container spacing={0}>
+            <Grid item xs={12} sm={12}>
+             <NewOrders data={Data.dashBoardPage.newOrders} />
+              </Grid>
+              <Grid item xs={12} sm={12} >
+              <MonthlySales data={this.state.listCityTrip}/>
+              </Grid>
 
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <NewOrders data={Data.dashBoardPage.newOrders} />
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <MonthlySales data={Data.dashBoardPage.monthlySales} />
-        </Grid>
+          
+       
       </Grid>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <RecentlyProducts data={Data.dashBoardPage.recentProducts} />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <BrowserUsage data={Data.dashBoardPage.browserUsage} />
-        </Grid>
-      </Grid>
+      
+     
+      
     </div>
   );
+  };
 };
 
 export default DashboardPage;

@@ -233,7 +233,7 @@ class ListUser extends React.Component {
                         color="textPrimary"
                         variant="body1"
                       >
-                        <Link key={n.name} to={`/home/userdetail/${n.user_id}`}onClick={() => localStorage.setItem("admin_user", String(n.user_id))}>{n.name}</Link>
+                        <Link key={n.name} to={`/admin/home/userdetail/${n.user_id}`}onClick={() => localStorage.setItem("admin_user", String(n.user_id))}>{n.name}</Link>
                       </Typography>
                     </Box>
                         

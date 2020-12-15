@@ -48,7 +48,7 @@ function Row(props) {
           {row.id}
         </TableCell>
         <TableCell align="right">
-        <Link key={row.name} to={`/home/userdetail/${row.user_id}`}onClick={() => localStorage.setItem("admin_user", row.user_id)}>{row.name}</Link>
+        <Link key={row.name} to={`/admin/home/userdetail/${row.user_id}`}onClick={() => localStorage.setItem("admin_user", row.user_id)}>{row.name}</Link>
         </TableCell>
         <TableCell align="right">{row.created_at}</TableCell>
         <TableCell align="right">{row.languages}</TableCell>

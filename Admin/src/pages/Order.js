@@ -40,13 +40,13 @@ function Row(props) {
           </IconButton>
         </TableCell>
         <TableCell>
-        <Link key={row.user} to={`/home/userdetail/${row.user_id}`}onClick={() => localStorage.setItem("admin_user", String(row.user_id))}>{row.user}</Link>
+        <Link key={row.user} to={`/admin/home/userdetail/${row.user_id}`}onClick={() => localStorage.setItem("admin_user", String(row.user_id))}>{row.user}</Link>
         </TableCell>
         <TableCell align="right">
-        <Link key={row.trip} to={`/home/tripdetail/${row.trip_id}`}onClick={() => localStorage.setItem("admin_trip", row.trip_id)}>{row.trip}</Link>
+        <Link key={row.trip} to={`/admin/home/tripdetail/${row.trip_id}`}onClick={() => localStorage.setItem("admin_trip", row.trip_id)}>{row.trip}</Link>
         </TableCell>
         <TableCell align="right">
-        <Link key={row.owner} to={`/home/userdetail/${row.owner_id}`}onClick={() => localStorage.setItem("admin_user", String(row.owner_id))}>{row.owner}</Link>
+        <Link key={row.owner} to={`/admin/home/userdetail/${row.owner_id}`}onClick={() => localStorage.setItem("admin_user", String(row.owner_id))}>{row.owner}</Link>
         </TableCell>
 
         

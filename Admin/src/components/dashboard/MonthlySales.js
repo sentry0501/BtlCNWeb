@@ -1,40 +1,58 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Paper from "@material-ui/core/Paper";
-import { BarChart, Bar, ResponsiveContainer, XAxis } from "recharts";
+// import { BarChart, Bar, ResponsiveContainer, XAxis } from "recharts";
 import GlobalStyles from "../../styles.scss";
+import { BarChart, Bar, XAxis,ResponsiveContainer,Tooltip, Legend, YAxis } from 'recharts';
 
 import { withStyles } from "@material-ui/core/styles";
 
-const MonthlySales = ({ data, theme }) => {
-  const styles = {
-    paper: {
-      backgroundColor: theme.palette.secondary[600],
-      height: 150
-    },
-    div: {
-      marginLeft: "auto",
-      marginRight: "auto",
-      width: "95%",
-      height: 85
-    },
-    header: {
-      color: "white",
-      backgroundColor: theme.palette.secondary[600],
-      padding: 10,
-      fontSize: 24
-    }
+
+class MonthlySales extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
   };
+}
+  
+  render(){
+    const { classes, data ,theme } = this.props;
+    const styles = {
+      paper: {
+        backgroundColor: theme.palette.secondary[600],
+        height: 220
+      },
+      div: {
+        marginLeft: "auto",
+        marginRight: "auto",
+        width: "95%",
+        height: "80%"
+      },
+      header: {
+        color: "white",
+        backgroundColor: theme.palette.secondary[600],
+        padding: 10,
+        fontSize: 24
+      }
+    };
 
   return (
     <Paper style={styles.paper}>
       <div style={{ ...GlobalStyles.title, ...styles.header }}>
-        Monthly Sales
+        Trips City Chart
+        
       </div>
       <div style={styles.div}>
+
+      
+
+
         <ResponsiveContainer>
-          <BarChart data={data}>
-            <Bar dataKey="uv" fill={theme.palette.primary[200]} />
+          <BarChart scaleToFit={true} data={data}
+          >
+            <Bar dataKey="trips" fill={theme.palette.primary[200]}/>
+            <Tooltip />
+            <Legend />
             <XAxis
               dataKey="name"
               stroke="none"
@@ -43,8 +61,10 @@ const MonthlySales = ({ data, theme }) => {
           </BarChart>
         </ResponsiveContainer>
       </div>
+      
     </Paper>
   );
+  }
 };
 
 MonthlySales.propTypes = {

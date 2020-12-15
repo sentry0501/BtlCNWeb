@@ -23,8 +23,6 @@ class CreateComment extends React.Component {
         }).then((response) => {
             // handle success
             console.log(response.data);
-            // this.state.name = response.name;
-            // this.state.email = response.email;
             this.setState({
                 avatar: response.data.data.avatar
             })

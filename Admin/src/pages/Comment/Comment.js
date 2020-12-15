@@ -1,16 +1,24 @@
 import React from 'react';
-import axios from 'axios';
-import * as StringConstants from './../String';
-
+import * as StringConstant from './../String';
+import {Avatar,Box, TableCell, TableContainer, TableRow} from "@material-ui/core";
 class Comment extends React.Component {
 
     render() {
         return (
-            <div className="m-3">
-                <img className="comment-avatar" src={StringConstants.IMAGE_PATH + this.props.comment.avatar} alt="avatar" />
+           
+               <table>
+                            <td  style={{paddingBottom:0, marginBottom:0}}>
+                            <Avatar 
+                                src={StringConstant.IMAGE_PATH + this.props.comment.avatar}>
+                            </Avatar>
+                            </td>
+                            <td style={{paddingLeft: 30, marginBottom:0}}>
+                            {this.props.comment.comment}
+                            </td>
+               </table>
+                            
 
-                <span style={{paddingLeft:30}} className="ml-5">{this.props.comment.comment}</span>
-            </div>
+           
         )
     }
 }
