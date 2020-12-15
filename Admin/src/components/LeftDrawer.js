@@ -7,7 +7,13 @@ import Avatar from "@material-ui/core/Avatar";
 import { withStyles } from "@material-ui/core/styles";
 
 import Menus from "./Menus";
-import data from "../data";
+import { Link as RouterLink, useLocation } from 'react-router-dom';
+import {
+  Box,
+  Typography,
+} from '@material-ui/core';
+import Link from "@material-ui/core/Link";
+import * as StringConstant from '../pages/String';
 
 const drawStyles = theme => {
   return {
@@ -71,13 +77,32 @@ const LeftDrawer = props => {
   const drawerContent = () => (
     <div>
       <div className={classes.logo}>
-        <a className={classes.logo} href="/home">
+        <Link
+        href="/home"  
+        variant="h5"
+        color="inherit"
+        
+      >
         Admin Trips
-        </a>
+      </Link>
       </div>
       <div className={classNames(classes.avatarRoot, !navDrawerOpen && classes.avatarRootMini)}>
-        <Avatar src={localStorage.getItem("avatar_admin")} size={navDrawerOpen ? 48 : 32} classes={{ root: classes.avatarIcon }} />
-        <span className={classes.avatarSpan}>{localStorage.getItem("user_name")}</span>
+
+        <Avatar
+          className={classes.avatar}
+          component={RouterLink}
+          src={StringConstant.IMAGE_PATH + localStorage.getItem("admin_avatar")}
+          to="/home/changepass"
+        />
+        <Typography
+          style ={{paddingLeft:30}}
+          className={classes.name}
+          color="white"
+          variant="h6"
+        >
+          {localStorage.getItem("admin_name")}
+        </Typography>
+        {/* <span className={classes.avatarSpan}>{localStorage.getItem("user_name")}</span> */}
       
       </div>
       <Menus menus={props.menus} navDrawerOpen={navDrawerOpen} />

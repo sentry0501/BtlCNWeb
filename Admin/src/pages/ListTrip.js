@@ -12,14 +12,14 @@ import Checkbox from "@material-ui/core/Checkbox";
 
 import ListTripTableHead from "./DataTables/ListTripTableHead";
 import ListTripTableToolbar from "./DataTables/ListTripTableToolbar";
-import tableData from "../../data";
+
 
 import axios from 'axios';
 
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
-
+import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 
 const desc = (a, b, orderBy) => {
@@ -59,7 +59,7 @@ const getSorting = (order, orderBy) => {
 const styles = theme => ({
   root: {
     width: "100%",
-    marginTop: theme.spacing.unit * 3
+    marginTop: theme.spacing(3)
   },
   table: {
     minWidth: 1020
@@ -74,7 +74,6 @@ class ListTrip extends React.Component {
     order: "asc",
     orderBy: "id",
     selected: [],
-    data: tableData.tablePage.items,
     page: 0,
     rowsPerPage: 15,
     tripList_origin: [],
@@ -184,8 +183,6 @@ class ListTrip extends React.Component {
         }
 
       }).then((response) => {
-        console.log(i)
-        console.log(n)
         n--;
         if (n===0){
           window.location.reload();
@@ -207,7 +204,7 @@ class ListTrip extends React.Component {
     
     const { classes } = this.props;
     const lowerCaseQuery = this.bodauTiengViet(this.state.query);
-    const {tripList, tripList_origin, data, order, orderBy, selected, rowsPerPage, page } = this.state;
+    const {tripList, tripList_origin, order, orderBy, selected, rowsPerPage, page } = this.state;
     const emptyRows =
       rowsPerPage - Math.min(rowsPerPage, tripList.length - page * rowsPerPage);
     console.log("haha")
@@ -217,37 +214,44 @@ class ListTrip extends React.Component {
      
       <Paper className={classes.root}>
         <div >
-        <TextField
-          hintText="Name"
-          label="Name"
-          floatingLabelText="Query"
-          value={this.state.query}
-          onChange={e => this.setState({ query: e.target.value,
-          tripList: e.target.value? tripList_origin.filter(x =>
-            this.bodauTiengViet(x[this.state.keyfilter]).includes(this.bodauTiengViet(e.target.value))): tripList_origin})}
-          floatingLabelFixed
-          margin="normal"
-          
-        />
-        <FormControl className={classes.formControl}>
-              <Select
-                style={{ marginLeft: "1em",
-                marginTop:"2em" }}
-                // hintText="Select"
-                value={this.state.keyfilter}
-                onChange={e =>
-                  this.setState({ keyfilter: e.target.value })
-                }
-              >
-                {/* <MenuItem value="" disabled>
-                Placeholder
-                </MenuItem> */}
-                <MenuItem value="name">Name</MenuItem> 
-                <MenuItem value="userName">User Name</MenuItem>
-                <MenuItem value="location">Location</MenuItem>
-              </Select>
-              
+        <table size="small">
+          <tbody>
+            <tr>
+              <td style={{paddingTop:35, paddingLeft:"5%", width: "30%"}}>
+                <Typography variant="subtitle2" component="div">
+                  Search For...
+                </Typography>  
+              </td>
+              <td>
+              <TextField
+                label="Name"
+                value={this.state.query}
+                onChange={e => this.setState({ query: e.target.value,
+                tripList: e.target.value? tripList_origin.filter(x =>
+                  this.bodauTiengViet(x[this.state.keyfilter]).includes(this.bodauTiengViet(e.target.value))): tripList_origin})}
+                margin="normal"
+                
+              />
+              <FormControl className={classes.formControl}>
+                <Select
+                  style={{ marginLeft: "1em",
+                  marginTop:"2em" }}
+                  value={this.state.keyfilter}
+                  onChange={e =>
+                    this.setState({ keyfilter: e.target.value })
+                  }
+                >
+                  <MenuItem value="name">Name</MenuItem> 
+                  <MenuItem value="userName">User Name</MenuItem>
+                  <MenuItem value="location">Location</MenuItem>
+                </Select>
+                
               </FormControl>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        
           </div>
         <ListTripTableToolbar classes={this.classes} numSelected={selected.length} handleDelete={this.onHandleDelete} />
         <div className={classes.tableWrapper}>
@@ -283,9 +287,9 @@ class ListTrip extends React.Component {
                       </TableCell>
                       <TableCell>{n.id}</TableCell>
                       
-                      <TableCell><Link key={n.name} to={`/home/edit-trip/${n.id}`}onClick={() => localStorage.setItem("admin_trip", n.id)}>{n.name}</Link>
+                      <TableCell>
+                        <Link key={n.name} to={`/home/tripdetail/${n.id}`}onClick={() => localStorage.setItem("admin_trip", n.id)}>{n.name}</Link>
 
-                      
                       </TableCell>
                       <TableCell>{n.location}</TableCell>
                       <TableCell>{n.price}</TableCell>

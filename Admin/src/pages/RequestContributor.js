@@ -20,8 +20,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { green } from "@material-ui/core/colors";
 import Icon from "@material-ui/core/Icon";
 import CheckIcon from '@material-ui/icons/Check';
-
-
+import Toolbar from '@material-ui/core/Toolbar';
+import { Link } from "react-router-dom";
 const useRowStyles = makeStyles({
   root: {
     '& > *': {
@@ -30,20 +30,6 @@ const useRowStyles = makeStyles({
   },
 });
 
-function createData(name, calories, fat, carbs, protein, price) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    price,
-    history: [
-      { date: '2020-01-05', customerId: '11091700', amount: 3 },
-      { date: '2020-01-02', customerId: 'Anonymous', amount: 1 },
-    ],
-  };
-}
 
 function Row(props) {
   const { row, onDeleteRequest, onUpdateRequest} = props;
@@ -61,7 +47,9 @@ function Row(props) {
         <TableCell component="th" scope="row">
           {row.id}
         </TableCell>
-        <TableCell align="right">{row.name}</TableCell>
+        <TableCell align="right">
+        <Link key={row.name} to={`/home/userdetail/${row.user_id}`}onClick={() => localStorage.setItem("admin_user", row.user_id)}>{row.name}</Link>
+        </TableCell>
         <TableCell align="right">{row.created_at}</TableCell>
         <TableCell align="right">{row.languages}</TableCell>
       </TableRow>
@@ -138,16 +126,16 @@ function Row(props) {
 
 Row.propTypes = {
   row: PropTypes.shape({
-    userName: PropTypes.string.isRequired,
-    createAt: PropTypes.string.isRequired,
-    Language: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
+    // userName: PropTypes.string.isRequired,
+    // createAt: PropTypes.string.isRequired,
+    // Language: PropTypes.string.isRequired,
+    // id: PropTypes.number.isRequired,
   }).isRequired,
 };
 
 
 
-class CollapsibleTable extends React.Component {
+class RequestTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -219,6 +207,14 @@ class CollapsibleTable extends React.Component {
   
   render() {
   return (
+    <Paper>
+    <Toolbar>
+    <div>
+        <Typography variant="h6" id="tableTitle">
+          List of request for Contributor
+        </Typography>
+    </div>
+    </Toolbar>
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
@@ -237,7 +233,8 @@ class CollapsibleTable extends React.Component {
         </TableBody>
       </Table>
     </TableContainer>
+    </Paper>
   );
   }
 }
-export default CollapsibleTable;
+export default RequestTable;

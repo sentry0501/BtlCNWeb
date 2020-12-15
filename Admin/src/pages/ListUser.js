@@ -8,23 +8,34 @@ import TableCell from "@material-ui/core/TableCell";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import Checkbox from "@material-ui/core/Checkbox";
+
 
 import UserTableHead from "./DataTables/UserTableHead";
 import UserTableToolbar from "./DataTables/UserTableToolbar";
-import tableData from "../../data";
+
 
 import axios from 'axios';
 
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
-
+import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import {Avatar,Box} from "@material-ui/core";
+import * as StringConstant from './String';
+  
 const desc = (a, b, orderBy) => {
+  if(orderBy==="role"){
+    if (b[orderBy]["name"] < a[orderBy]["name"]) {
 
+      return -1;
+    }
+    if (b[orderBy]["name"] > a[orderBy]["name"]) {
+  
+      return 1;
+    }
+    return 0;
+  }
   if (b[orderBy] < a[orderBy]) {
 
     return -1;
@@ -39,15 +50,11 @@ const desc = (a, b, orderBy) => {
 const stableSort = (array, cmp) => {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
-    // console.log("sortby:")
-    // console.log(a[0]+ " "+ b[0])
     const order = cmp(a[0], b[0]);
-    // console.log(cmp(a[0],b[0]))
     
     if (order !== 0) return order;
     return a[1] - b[1];
   });
-  // console.log(stabilizedThis.map(el => el[0]))
   return stabilizedThis.map(el => el[0]);
 };
 
@@ -60,7 +67,7 @@ const getSorting = (order, orderBy) => {
 const styles = theme => ({
   root: {
     width: "100%",
-    marginTop: theme.spacing.unit * 3
+    marginTop: theme.spacing(3)
   },
   table: {
     minWidth: 1020
@@ -71,17 +78,20 @@ const styles = theme => ({
 });
 
 class ListUser extends React.Component {
-  state = {
-    order: "asc",
-    orderBy: "name",
-    selected: [],
-    page: 0,
-    rowsPerPage: 15,
-    userList_origin: [],
-    userList: [],
-    query:"",
-    keyfilter: "name"
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      order: "asc",
+      orderBy: "name",
+      page: 0,
+      rowsPerPage: 15,
+      userList_origin: [],
+      userList: [],
+      query:"",
+      keyfilter: "name"
+    }
+  } 
+
  
  
   bodauTiengViet(str) {
@@ -121,6 +131,8 @@ class ListUser extends React.Component {
     
   handleRequestSort = (event, property) => {
     const orderBy = property;
+    
+    console.log(property)
     let order = "desc";
 
     if (this.state.orderBy === property && this.state.order === "desc") {
@@ -128,35 +140,6 @@ class ListUser extends React.Component {
     }
 
     this.setState({ order, orderBy });
-  };
-
-  handleSelectAllClick = event => {
-    if (event.target.checked) {
-      this.setState(state => ({ selected: state.userList.map(n => n.id) }));
-      return;
-    }
-    this.setState({ selected: [] });
-  };
-
-  handleClick = (event, id) => {
-    const { selected } = this.state;
-    const selectedIndex = selected.indexOf(id);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, id);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selected.slice(1));
-    } else if (selectedIndex === selected.length - 1) {
-      newSelected = newSelected.concat(selected.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
-    }
-
-    this.setState({ selected: newSelected });
   };
 
   handleChangePage = (event, page) => {
@@ -167,19 +150,11 @@ class ListUser extends React.Component {
     this.setState({ rowsPerPage: event.target.value });
   };
 
-  
-  
-  onHandleDelete= (event) => {
-    console.log("delete")
-    event.preventDefault();
-  }
-
-  isSelected = id => this.state.selected.indexOf(id) !== -1;
 
   render() {
     
     const { classes } = this.props;
-    const {userList, userList_origin, order, orderBy, selected, rowsPerPage, page } = this.state;
+    const {userList, userList_origin, order, orderBy, rowsPerPage, page } = this.state;
     const emptyRows =
       rowsPerPage - Math.min(rowsPerPage, userList.length - page * rowsPerPage);
     
@@ -187,45 +162,47 @@ class ListUser extends React.Component {
      
       <Paper className={classes.root}>
         <div >
-        <TextField
-          hintText="Name"
-          label="Name"
-          floatingLabelText="Query"
-          value={this.state.query}
-          onChange={e => this.setState({ query: e.target.value,
-          userList: e.target.value? userList_origin.filter(x =>
-            this.bodauTiengViet(x[this.state.keyfilter]).includes(this.bodauTiengViet(e.target.value))): userList_origin})}
-          floatingLabelFixed
-          margin="normal"
-          
-        />
-        <FormControl className={classes.formControl}>
-              <Select
-                style={{ marginLeft: "1em",
-                marginTop:"2em" }}
-                // hintText="Select"
-                value={this.state.keyfilter}
-                onChange={e =>
-                  this.setState({ keyfilter: e.target.value })
-                }
-              >
-                {/* <MenuItem value="" disabled>
-                Placeholder
-                </MenuItem> */}
-                <MenuItem value="name">Name</MenuItem> 
-                <MenuItem value="address">Address</MenuItem>
-                {/* <MenuItem value="role.name">Role</MenuItem> */}
-              </Select>
+        <table size="small">
+          <tbody>
+            <tr>
+              <td style={{paddingTop:35, paddingLeft:"5%", width: "30%"}}>
+                <Typography variant="subtitle2" component="div">
+                  Search For...
+                </Typography>  
+              </td>
+              <td>
+              <TextField
+                label="Name"
+                value={this.state.query}
+                onChange={e => this.setState({ query: e.target.value,
+                userList: e.target.value? userList_origin.filter(x =>
+                  this.bodauTiengViet(x[this.state.keyfilter]!==null?x[this.state.keyfilter]:"").includes(this.bodauTiengViet(e.target.value))): userList_origin})}
+                margin="normal"/>
+              <FormControl className={classes.formControl}>
+                <Select
+                  style={{ marginLeft: "1em",
+                  marginTop:"2em" }}
+                  // hintText="Select"
+                  value={this.state.keyfilter}
+                  onChange={e =>
+                    this.setState({ keyfilter: e.target.value })
+                  }
+                >
+                  <MenuItem value="name">Name</MenuItem> 
+                  <MenuItem value="address">Address</MenuItem>
+                </Select>
               </FormControl>
+          </td>
+            </tr>
+          </tbody>
+        </table>
           </div>
-        <UserTableToolbar classes={this.classes} numSelected={selected.length} handleDelete={this.onHandleDelete} />
+        <UserTableToolbar classes={this.classes} />
         <div className={classes.tableWrapper}>
           <Table className={classes.table} aria-labelledby="tableTitle">
             <UserTableHead
-              numSelected={selected.length}
               order={order}
               orderBy={orderBy}
-              onSelectAllClick={this.handleSelectAllClick}
               onRequestSort={this.handleRequestSort}
               rowCount={userList.length}
               
@@ -236,27 +213,35 @@ class ListUser extends React.Component {
                 : this.state.userList_origin, getSorting(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(n => {
-                  const isSelected = this.isSelected(n.id);
                   return (
                     <TableRow
-                      hover
-                      onClick={event => this.handleClick(event, n.id)}
-                      role="checkbox"
-                      aria-checked={isSelected}
                       tabIndex={-1}
                       key={n.id}
-                      selected={isSelected}
                     >
-                      <TableCell padding="checkbox">
-                        <Checkbox checked={isSelected} />
-                      </TableCell>
                       <TableCell>
-                        <Link key={n.name} to={`/home/userdetail/${n.id}`}onClick={() => localStorage.setItem("admin_user", n.id)}>{n.name}</Link>
+                      <Box
+                      alignItems="center"
+                      display="flex"
+                    >
+                      <Avatar
+                        className={classes.avatar}
+                        src={StringConstant.IMAGE_PATH + n.avatar}
+                      >
+                      </Avatar>
+                      <Typography
+                      style={{paddingLeft:20}}
+                        color="textPrimary"
+                        variant="body1"
+                      >
+                        <Link key={n.name} to={`/home/userdetail/${n.user_id}`}onClick={() => localStorage.setItem("admin_user", String(n.user_id))}>{n.name}</Link>
+                      </Typography>
+                    </Box>
+                        
                       </TableCell>
                       <TableCell>{n.email}</TableCell>
                       <TableCell>{n.address}</TableCell>
                       <TableCell>{n.phone}</TableCell>
-                      {/* <TableCell>{n.role.name}</TableCell> */}
+                      <TableCell>{n.role.name}</TableCell>
                     </TableRow>
                   );
                 })}

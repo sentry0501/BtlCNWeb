@@ -7,6 +7,7 @@ import { grey } from "@material-ui/core/colors";
 class InfoBox extends React.Component {
   render() {
     const { color, title, value, Icon } = this.props;
+    // value = toString(value);
     const styles = {
       content: {
         padding: "5px 10px",
@@ -61,7 +62,7 @@ InfoBox.propTypes = {
   Icon: PropTypes.any, // eslint-disable-line
   color: PropTypes.string,
   title: PropTypes.string,
-  value: PropTypes.string
+  value: PropTypes.number
 };
 
 export default InfoBox;

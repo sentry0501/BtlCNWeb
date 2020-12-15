@@ -22,17 +22,17 @@ const DashboardPage = () => {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6} md={3}>
           <Link to="/table/data" className="button">
-            <InfoBox Icon={ShoppingCart} color={pink[600]} title="Total Profit" value="1500000" />
+            <InfoBox Icon={ShoppingCart} color={pink[600]} title="Total Profit" value={1500000} />
           </Link>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
-          <InfoBox Icon={ThumbUp} color={cyan[600]} title="Likes" value="4231" />
+          <InfoBox Icon={ThumbUp} color={cyan[600]} title="Likes" value={4231} />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
-          <InfoBox Icon={Assessment} color={purple[600]} title="Sales" value="460" />
+          <InfoBox Icon={Assessment} color={purple[600]} title="Sales" value={460} />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
-          <InfoBox Icon={Face} color={orange[600]} title="New Members" value="248" />
+          <InfoBox Icon={Face} color={orange[600]} title="New Members" value={248} />
         </Grid>
       </Grid>
 

@@ -38,37 +38,16 @@ const toolbarStyles = theme => ({
 });
 
 class UserTableToolbar extends React.Component {
-  createHandleDelete = (event) => {
-    console.log("dmm")
-     this.props.handleDelete(event);
-  }
+
   render() {
-  const { numSelected, classes } = this.props;
+  const { classes } = this.props;
 
   return (
-    <Toolbar
-      className={classNames(classes.root, {
-        [classes.highlight]: numSelected > 0
-      })}
-    >
+    <Toolbar>
       <div className={classes.title}>
           <Typography variant="h6" id="tableTitle">
             List Of Users
           </Typography>
-        {/* )} */}
-      </div>
-      <div className={classes.spacer} />
-      <div className={classes.actions}>
-        {numSelected > 0 ? (
-          <Tooltip title="Delete">
-            <IconButton aria-label="Delete">
-              {/* <span>{"Delete"}</span> */}
-              <DeleteIcon onClick={this.createHandleDelete}/>
-            </IconButton>
-          </Tooltip>
-        ) : (
-          <div></div>
-        )}
       </div>
     </Toolbar>
   );
@@ -77,8 +56,7 @@ class UserTableToolbar extends React.Component {
 
 UserTableToolbar.propTypes = {
   classes: PropTypes.object.isRequired,
-  numSelected: PropTypes.number.isRequired,
-  handleDelete: PropTypes.func.isRequired
+
 };
 
 UserTableToolbar = withStyles(toolbarStyles)(UserTableToolbar);

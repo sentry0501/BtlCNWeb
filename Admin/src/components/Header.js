@@ -4,9 +4,7 @@ import classNames from "classnames"
 import AppBar from "@material-ui/core/AppBar"
 import IconButton from "@material-ui/core/IconButton"
 import MenuIcon from "@material-ui/icons/Menu"
-import InputBase from "@material-ui/core/InputBase"
-import SearchIcon from "@material-ui/icons/Search"
-import GitHub from "@material-ui/icons/GitHub"
+
 import AccountCircle from "@material-ui/icons/AccountCircle"
 import MailIcon from "@material-ui/icons/Mail"
 import NotificationsIcon from "@material-ui/icons/Notifications"
@@ -17,6 +15,8 @@ import { fade } from "@material-ui/core/styles/colorManipulator"
 import { withStyles } from "@material-ui/core/styles"
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import {Redirect} from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const styles = (theme) => ({
   appBar: {
@@ -50,23 +50,8 @@ const styles = (theme) => ({
       display: "block",
     },
   },
-  search: {
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing.unit * 2,
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing.unit * 3,
-      width: "auto",
-    },
-  },
   searchIcon: {
-    width: theme.spacing.unit * 9,
+    width: theme.spacing(9),
     height: "100%",
     position: "absolute",
     pointerEvents: "none",
@@ -82,7 +67,7 @@ const styles = (theme) => ({
     paddingTop: theme.spacing.unit,
     paddingRight: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 10,
+    paddingLeft: theme.spacing(10),
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("md")]: {
@@ -114,6 +99,13 @@ class Header extends React.Component {
     this.onHandleLogout=this.onHandleLogout.bind(this)
   }
 
+  createChangePass = (event) =>{
+    return (<Redirect to={{
+      pathname : '/home/changepass',
+      state: {redirectToReferrer: true,
+      }
+    }}/>)
+  }
   handleProfileMenuOpen = (event) => {
     this.setState({ anchorEl: event.currentTarget })
   }
@@ -154,18 +146,7 @@ class Header extends React.Component {
             >
               <MenuIcon />
             </IconButton>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-              />
-            </div>
+
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
               <IconButton color="inherit">
@@ -201,7 +182,9 @@ class Header extends React.Component {
         open={Boolean(anchorEl)}
         onClose={this.handleMenuClose}
       >
-        <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
+        <MenuItem>
+        <Link to={`/home/changepass`}>Profile</Link>
+        </MenuItem>
         <MenuItem onClick={this.onHandleLogout}>Logout</MenuItem>
       </Menu>
             </div>

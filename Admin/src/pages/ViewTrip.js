@@ -70,6 +70,10 @@ class ViewTrip extends React.Component {
                             <TableContainer component={Paper}>
                                 <Table className={classes.table} aria-label="simple table">
                                     <TableBody>
+                                    <TableRow>
+                                            <TableCell component="th" scope="row">Name</TableCell>
+                                            <TableCell>{this.state.trip.name}</TableCell>
+                                        </TableRow>
                                         <TableRow>
                                             <TableCell component="th" scope="row">Location</TableCell>
                                             <TableCell>{this.state.trip.location}</TableCell>
@@ -77,6 +81,10 @@ class ViewTrip extends React.Component {
                                         <TableRow>
                                             <TableCell component="th" scope="row">Duration</TableCell>
                                             <TableCell>{this.state.trip.duration} Hours</TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell component="th" scope="row">Transportation</TableCell>
+                                            <TableCell>{this.state.trip.transportation}</TableCell>
                                         </TableRow>
                                         <TableRow>
                                             <TableCell component="th" scope="row">Departure</TableCell>

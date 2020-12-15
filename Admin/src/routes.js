@@ -7,8 +7,8 @@ export default (
   <Router>
     <Switch>
       
-      <Route  path="/home/" component={HomePage} />
-      <Route exact path="/" component={LoginPage} />
+      <Route  path="/home/" component={props => <HomePage {...props}/>} />
+      <Route exact path="/" component={props => <LoginPage {...props}/>}/>
     </Switch>
   </Router>
 );

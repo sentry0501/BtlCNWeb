@@ -12,28 +12,21 @@ const data = {
     { text: "DashBoard", icon: <Assessment />, link: "/home/dashboard" },
     { text: "Request Contributor", icon: <Web />, link: "/home/form" },
     {
-      text: "Table Page",
-      icon: <GridOn />,
-      // link: "/table",
-      subMenus: [
-        {
-          text: "User",
-          icon: <PermIdentity />,
-          link: "/home/ListUser"
-        },
-        {
-          text: "Trips",
-          icon: <BorderOuter />,
-          link: "/home/trips"
-        }
-      ]
+      text: "User",
+      icon: <PermIdentity />,
+      link: "/home/ListUser"
     },
-    { text: "Login Page", icon: <PermIdentity />, link: "/" }
+    {
+      text: "Trips",
+      icon: <BorderOuter />,
+      link: "/home/trips"
+    },
+    { text: "Ordered Trips", icon: <PermIdentity />, link: "/home/order" }
   ],
-  user: {
-    userName: `${Faker.name.firstName()} ${Faker.name.lastName()}`,
-    avatar: Faker.image.avatar()
-  },
+  // user: {
+  //   userName: `${Faker.name.firstName()} ${Faker.name.lastName()}`,
+  //   avatar: Faker.image.avatar()
+  // },
   tablePage: {
     items: Array.from({ length: 15 }, (item, index) => ({
       id: index,

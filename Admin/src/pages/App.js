@@ -6,17 +6,25 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { grey } from "@material-ui/core/colors";
 import PersonAdd from "@material-ui/icons/PersonAdd";
 import Help from "@material-ui/icons/Help";
-import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { Link } from "react-router-dom";
 import theme from "../theme";
-import PropTypes from "prop-types";
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 
 import axios from 'axios';
 import {Redirect} from 'react-router-dom';
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Slide from "@material-ui/core/Slide";
 
+
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 class LoginPage extends React.Component {
 
 
@@ -27,7 +35,8 @@ class LoginPage extends React.Component {
     this.state = {
         email: '',
         password: '',
-        redirectToReferrer: false
+        redirectToReferrer: false,
+        open: false
     }
   }
 
@@ -36,6 +45,11 @@ class LoginPage extends React.Component {
       this.setState({
           [event.target.name]: event.target.value
       })
+  }
+  handleClose = () => {
+    this.setState({
+      open: false
+    })
   }
 
 
@@ -50,10 +64,12 @@ class LoginPage extends React.Component {
       }).then((response) => {
           if (response.data.role == "admin")
           {
+            console.log(response.data);
             localStorage.setItem("token", response.data.token);
             // localStorage.setItem("user_name", response.data.user.name);
             localStorage.setItem("islogged",true);
-            localStorage.setItem("avatar_admin",response.data.user_info.avatar)
+            localStorage.setItem("admin_avatar",response.data.user_info[0].avatar)
+            // localStorage.setItem("admin_name",response.data.user.name)
             this.setState({redirectToReferrer:true}); 
           
           }
@@ -63,6 +79,9 @@ class LoginPage extends React.Component {
           // handle success
           
       }).catch((error) => {
+        this.setState({
+          open: true
+        })
           // handle error
           console.log(error);
       });
@@ -182,19 +201,30 @@ class LoginPage extends React.Component {
                 <span style={{ margin: 5 }}>Forgot Password?</span>
               </Button>
             </div>
-
-            <div style={styles.buttonsDiv}>
-              <Link to="/home" style={{ ...styles.btn, ...styles.btnFacebook }}>
-                <i className="fa fa-facebook fa-lg" />
-                <span style={styles.btnSpan}>Log in with Facebook</span>
-              </Link>
-              <Link to="/home" style={{ ...styles.btn, ...styles.btnGoogle }}>
-                <i className="fa fa-google-plus fa-lg" />
-                <span style={styles.btnSpan}>Log in with Google</span>
-              </Link>
-            </div>
           </div>
         </div>
+        <Dialog
+            open={this.state.open}
+            TransitionComponent={Transition}
+            keepMounted
+            onClose={this.handleClose}
+            aria-labelledby="alert-dialog-slide-title"
+            aria-describedby="alert-dialog-slide-description"
+        >
+        <DialogTitle id="alert-dialog-slide-title">
+          {"Login Failed!"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            Mat khau khong chinh xac!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.handleClose} color="primary">
+            OK
+          </Button>
+        </DialogActions>
+        </Dialog>
       </ThemeProvider>
     );
   }

@@ -14,11 +14,14 @@ import NotFound from "./NotFoundPage";
 import { ThemeProvider } from "@material-ui/core/styles";
 import defaultTheme, { customTheme } from "../theme";
 import {Redirect} from 'react-router-dom';
-import ListTrip from "./Table/ListTrip";
-import ViewTrip from "./Table/ViewTrip.js";
-import ListUser from "./Table/ListUser";
+import ListTrip from "./ListTrip";
+import ViewTrip from "./ViewTrip.js";
+import ListUser from "./ListUser";
 import '../App.css';
-import CollapsibleTable from "./RequestContributor";
+import RequestTable from "./RequestContributor";
+import UserDetail from "./UserDetail";
+import OrderTable from "./Order"
+import Profile from "./Profile";
 
 const styles = () => ({
   container: {
@@ -111,18 +114,10 @@ class HomePage extends React.Component {
       return(
         (<Redirect to={{
           pathname : '/',
-          // state: {redirectToReferrer: false,
-          // }
         }}/>)
       )
     }
-    // if(!this.state.redirectToReferrer){
-    //   return (<Redirect to={{
-    //     pathname : '/',
-    //     state: {redirectToReferrer: false,
-    //     }
-    //   }}/>)
-    // }
+
     return (
       <ThemeProvider theme={theme}>
         <Header handleChangeNavDrawer={this.handleChangeNavDrawer} navDrawerOpen={navDrawerOpen} handleProfileMenuOpen={false} logOut={this.logOut} />
@@ -148,10 +143,13 @@ class HomePage extends React.Component {
           <Switch>
             <Route exact path="/home/" component={Dashboard} />
             <Route path="/home/dashboard" component={Dashboard} />
-            <Route path="/home/form" component={CollapsibleTable} />
-            <Route path="/home/ListUser" component={ListUser} />
-            <Route path="/home/trips" component={ListTrip} />
-            <Route path="/home/edit-trip"component={ViewTrip}/>
+            <Route path="/home/form" component={props => <RequestTable {...props}/>} />
+            <Route path="/home/order" component={props => <OrderTable {...props}/>}/>
+            <Route path="/home/ListUser" component={props => <ListUser {...props}/>} />
+            <Route path="/home/userdetail" component={props => <UserDetail {...props}/>} />
+            <Route path="/home/trips" component={props => <ListTrip {...props}/>} />
+            <Route path="/home/tripdetail" component={props => <ViewTrip {...props}/>}/>
+            <Route path="/home/changepass" component={props => <Profile {...props}/>} />
             <Route component={NotFound} />
           </Switch>
         </div>

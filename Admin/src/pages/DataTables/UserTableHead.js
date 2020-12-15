@@ -18,7 +18,7 @@ const rows = [
   { id: "email", numeric: false, disablePadding: false, label: "Email" },
   { id: "address", numeric: false, disablePadding: false, label: "Address" },
   { id: "phone", numeric: false, disablePadding: false, label: "Phone" },
-  { id: "role.name", numeric: false, disablePadding: false, label: "Role" }
+  { id: "role", numeric: false, disablePadding: false, label: "Role" }
 ];
 
 class UserTableHead extends React.Component {
@@ -28,23 +28,15 @@ class UserTableHead extends React.Component {
   
   render() {
     const {
-      onSelectAllClick,
       order,
       orderBy,
-      numSelected,
       rowCount
     } = this.props;
 
     return (
       <TableHead>
         <TableRow>
-          <TableCell padding="checkbox">
-            <Checkbox
-              indeterminate={numSelected > 0 && numSelected < rowCount}
-              checked={numSelected >= rowCount}
-              onChange={onSelectAllClick}
-            />
-          </TableCell>
+
           {rows.map(
             row => (
               <TableCell
@@ -77,9 +69,9 @@ class UserTableHead extends React.Component {
 }
 
 UserTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
+
   onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
+
   order: PropTypes.string.isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired
