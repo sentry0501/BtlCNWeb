@@ -107,7 +107,7 @@ class HomePage extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { redirectToReferrer, navDrawerOpen, rightDrawerOpen, theme } = this.state;
+    const { navDrawerOpen, rightDrawerOpen, theme } = this.state;
     
     if(localStorage.getItem("islogged")==="false"){
       

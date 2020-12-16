@@ -18,7 +18,6 @@ import axios from 'axios';
 import DeleteIcon from "@material-ui/icons/Delete";
 
 import { green } from "@material-ui/core/colors";
-import Icon from "@material-ui/core/Icon";
 import CheckIcon from '@material-ui/icons/Check';
 import Toolbar from '@material-ui/core/Toolbar';
 import { Link } from "react-router-dom";

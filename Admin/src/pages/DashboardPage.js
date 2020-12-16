@@ -34,7 +34,6 @@ class DashboardPage extends React.Component {
     do    
               {
                 cont=false
-                console.log("i ",i)
                   var city_ = city[i];
                   // this.haha(city_,listTrip_City);
 
@@ -46,12 +45,8 @@ class DashboardPage extends React.Component {
                   }).then((response) => {
                       // handle success
                       console.log("abc", response.data);
-                      console.log("city", city_.city);
                       var count = response.data.trips.length
-                      console.log("count", count);
                       listTrip_City.push({name:city_.city,trips:count})
-                      console.log("list", listTrip_City);
-                      console.log("monthly",this.state.listCityTrip )
                       i++;
                       cont = true;
                       }).catch((error) => {
@@ -63,7 +58,6 @@ class DashboardPage extends React.Component {
                   
                 }
                 while(i<city.length&&cont===true)
-                console.log("list", listTrip_City);
                 this.setState({listCityTrip:listTrip_City,
                   show:true
                 }) 
@@ -100,7 +94,6 @@ class DashboardPage extends React.Component {
               this.setState({
                   listCity: response.data.city
               })
-              var listTrip_City = [];
               this.haha(response.data.city)
                 
           }).catch((error) => {
@@ -111,18 +104,8 @@ class DashboardPage extends React.Component {
 
   render()
   {
-    const {theme} = this.props
-    const styles = {
-      
-      div: {
-        marginLeft: "auto",
-        marginRight: "auto",
-        width: "95%",
-        height: 85
-      },
 
-    };
-    const chartData = this.state.listCityTrip
+
   return (
     <div>
       <h3 style={globalStyles.navigation}>Application / Dashboard</h3>

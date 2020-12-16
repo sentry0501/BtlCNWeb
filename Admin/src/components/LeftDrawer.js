@@ -7,9 +7,8 @@ import Avatar from "@material-ui/core/Avatar";
 import { withStyles } from "@material-ui/core/styles";
 
 import Menus from "./Menus";
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import {
-  Box,
   Typography,
 } from '@material-ui/core';
 import Link from "@material-ui/core/Link";
@@ -72,7 +71,7 @@ const drawStyles = theme => {
 };
 
 const LeftDrawer = props => {
-  let { navDrawerOpen, classes, theme, handleChangeNavDrawer } = props;
+  let { navDrawerOpen, classes } = props;
 
   const drawerContent = () => (
     <div>
@@ -113,7 +112,7 @@ const LeftDrawer = props => {
   return (
     <div>
       {/* Mobile screen */}
-      <Hidden mdUp>
+      {/* <Hidden mdUp>
         <Drawer
           variant="temporary"
           anchor={theme.direction === "rtl" ? "right" : "left"}
@@ -125,11 +124,11 @@ const LeftDrawer = props => {
           ModalProps={{
             keepMounted: true // Better open performance on mobile.
           }}
-        >
+        > */}
           {/* should close drawer modal as well when click on menu */}
-          {drawerContent(handleChangeNavDrawer)}
+          {/* {drawerContent(handleChangeNavDrawer)}
         </Drawer>
-      </Hidden>
+      </Hidden> */}
 
       {/* Desktop screen */}
       <Hidden smDown>

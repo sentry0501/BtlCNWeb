@@ -203,7 +203,6 @@ class ListTrip extends React.Component {
   render() {
     
     const { classes } = this.props;
-    const lowerCaseQuery = this.bodauTiengViet(this.state.query);
     const {tripList, tripList_origin, order, orderBy, selected, rowsPerPage, page } = this.state;
     const emptyRows =
       rowsPerPage - Math.min(rowsPerPage, tripList.length - page * rowsPerPage);

@@ -2,13 +2,11 @@ import React from 'react';
 import * as StringConstant from './String';
 import axios from 'axios';
 import ListComment from './Comment/ListComment';
-import CreateComment from './Comment/CreateComment';
 import Typography from "@material-ui/core/Typography";
 
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
-import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from '@material-ui/core/Paper';
 import TableContainer from '@material-ui/core/TableContainer';

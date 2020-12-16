@@ -10,7 +10,6 @@ import Paper from "@material-ui/core/Paper";
 import IconButton from "@material-ui/core/IconButton";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import { cyan } from "@material-ui/core/colors";
 import Wallpaper from "@material-ui/icons/Wallpaper";
 import { withStyles } from "@material-ui/core/styles";

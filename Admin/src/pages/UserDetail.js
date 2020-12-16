@@ -1,7 +1,6 @@
 import React from 'react';
 import * as StringConstant from './String';
 import axios from 'axios';
-import ListComment from './Comment/ListComment';
 import Typography from "@material-ui/core/Typography";
 
 import Table from "@material-ui/core/Table";

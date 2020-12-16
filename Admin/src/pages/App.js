@@ -62,7 +62,7 @@ class LoginPage extends React.Component {
               password: this.state.password
           }
       }).then((response) => {
-          if (response.data.role == "admin")
+          if (response.data.role === "admin")
           {
             console.log(response.data);
             localStorage.setItem("token", response.data.token);

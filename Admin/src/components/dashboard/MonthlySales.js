@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Paper from "@material-ui/core/Paper";
 // import { BarChart, Bar, ResponsiveContainer, XAxis } from "recharts";
 import GlobalStyles from "../../styles.scss";
-import { BarChart, Bar, XAxis,ResponsiveContainer,Tooltip, Legend, YAxis } from 'recharts';
+import { BarChart, Bar, XAxis,ResponsiveContainer,Tooltip, Legend } from 'recharts';
 
 import { withStyles } from "@material-ui/core/styles";
 
@@ -16,7 +16,7 @@ class MonthlySales extends React.Component {
 }
   
   render(){
-    const { classes, data ,theme } = this.props;
+    const { data ,theme } = this.props;
     const styles = {
       paper: {
         backgroundColor: theme.palette.secondary[600],

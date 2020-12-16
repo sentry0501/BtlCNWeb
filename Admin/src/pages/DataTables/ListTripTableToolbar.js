@@ -8,9 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@material-ui/icons/Delete";
-import FilterListIcon from "@material-ui/icons/FilterList";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
-import Button from "@material-ui/core/Button";
 
 const toolbarStyles = theme => ({
   root: {
@@ -39,7 +37,6 @@ const toolbarStyles = theme => ({
 
 class ListTripTableToolbar extends React.Component {
   createHandleDelete = (event) => {
-    console.log("dmm")
      this.props.handleDelete(event);
   }
   render() {

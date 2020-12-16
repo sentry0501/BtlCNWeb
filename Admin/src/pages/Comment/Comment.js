@@ -1,6 +1,6 @@
 import React from 'react';
 import * as StringConstant from './../String';
-import {Avatar,Box, TableCell, TableContainer, TableRow} from "@material-ui/core";
+import {Avatar} from "@material-ui/core";
 class Comment extends React.Component {
 
     render() {
